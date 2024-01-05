@@ -32,16 +32,18 @@ function deleteBook(PDO $pdo, $bookId) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['id']) && is_numeric($_POST['id'])) {
-        $bookId = $_POST['id'];
-        $deleted = deleteBook($pdo, $bookId);
-        if ($deleted) {
-            
-            header("Location: ../../pages/main.php");
-            exit();
-        } else {
-            echo "Book with ID $bookId not found.";
+    if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+        if (isset($_POST['id']) && is_numeric($_POST['id'])) {
+            $bookId = $_POST['id'];
+            $deleted = deleteBook($pdo, $bookId);
+            if ($deleted) {
+                
+                header("Location: ../../pages/main.php");
+                exit();
+            } else {
+                echo "Book with ID $bookId not found.";
+            }
         }
     }
-}
+    }
 ?>

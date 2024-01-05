@@ -13,7 +13,7 @@
         <?php
         if (isset($_GET['error'])) {
             $error = $_GET['error'];
-            echo "<p>Error: $error</p>";
+            echo "<p>Error: " . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . "</p>";
         }
         ?>
 

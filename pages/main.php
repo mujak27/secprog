@@ -43,8 +43,13 @@ if (!empty($allBooks)) {
             
             echo "<a href='updateBook.php?id=" . $bookId . "'>Update</a>";
             
+            $csrfToken = bin2hex(random_bytes(32));
+            
+            $_SESSION['csrf_token'] = $csrfToken;
+            
             echo "<form method='post' action='../controller/books/delete.php' style='display:inline;'>
                       <input type='hidden' name='id' value='" . $bookId . "'>
+                      <input type='hidden' name='csrf_token' value='" . $csrfToken . "'>
                       <input type='submit' value='Delete' onclick='return confirm(\"Are you sure you want to delete this book?\")'>
                   </form>";
         }
